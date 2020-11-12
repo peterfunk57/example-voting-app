@@ -11,34 +11,37 @@ pipeline {
         stage('build'){
             steps{
                 echo 'Compilando worker app ...'
+                dir('worker'){
+                bat 'mvn compile'
+                }
+            }
+                
+        }
+
+        stage('Testing'){
+            steps{
+                echo 'Testing worker app ...'
 
                 }
                 
-            }
-
         }
 
-        stage ('test'){
+        stage('Package'){
             steps{
-                echo 'Corriendo pruebas unitstias worker app ...'
-            }
+                echo 'generando binario worker app ...'
 
+                }
+                
         }
 
-        stage('package'){
-            steps{
-                echo 'Empacando worker app ...'
-            }
-
-        }
     }
-    
-    post{
+
+       post{
 
         always{
             echo 'Build para worker app terminado ...'
 
         }
-    
-}
+    }
 
+}
