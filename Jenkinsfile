@@ -39,6 +39,6 @@ pipeline {
             echo 'Build para worker app terminado ...'
 
         }
-    }
+    
 }
 
