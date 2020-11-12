@@ -20,7 +20,7 @@ pipeline {
 
         stage('Testing'){
             steps{
-                
+
                 echo 'Testing worker app ...'
                 dir('worker'){
                 bat 'mvn clean test'
@@ -31,11 +31,12 @@ pipeline {
         }
 
         stage('Package'){
-            steps{
-                when{
+            when{
                     branch 'master'
                     changeset "**/worker/**"
                 }
+            steps{
+                
                 echo 'generando binario worker app ...'
                 dir('worker'){
                 bat 'mvn package -DskipTest'
