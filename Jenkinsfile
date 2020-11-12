@@ -21,16 +21,20 @@ pipeline {
         stage('Testing'){
             steps{
                 echo 'Testing worker app ...'
-
+                dir('worker'){
+                bat 'mvn clean test'
                 }
+            }
                 
         }
 
         stage('Package'){
             steps{
                 echo 'generando binario worker app ...'
-
+                dir('worker'){
+                bat 'mvn package -DskipTest'
                 }
+            }
                 
         }
 
@@ -40,7 +44,7 @@ pipeline {
 
         always{
             echo 'Build para worker app terminado ...'
-
+            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
     }
 
