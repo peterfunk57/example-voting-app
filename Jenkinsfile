@@ -24,6 +24,7 @@ pipeline {
                 dir('worker'){
                 bat 'mvn clean test'
                 }
+                
             }
                 
         }
