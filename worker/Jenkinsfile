@@ -1,9 +1,11 @@
 pipeline {
 
-    agent any
+    agent {
 
-    tools {
-        maven 'Maven 3.6.3' 
+        docker {
+           image 'maven:3.6.1-djk-8-alphine'
+           args '-v $HOME/.m2:/root/.m2'
+        }
     }
 
     stages{
