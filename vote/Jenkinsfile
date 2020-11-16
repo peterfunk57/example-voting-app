@@ -5,10 +5,10 @@ pipeline {
         }
     }
 
-    stages {
+    stages{
 
-        stage('build') {
-            steps {
+        stage('build'){
+            steps{
                 echo 'Compilando ....'
                 dir(vote){
                     sh 'pip install -i requirements.txt'
