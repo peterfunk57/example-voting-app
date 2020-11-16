@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        }
+    
     }
 
      post{
@@ -39,3 +39,4 @@ pipeline {
     }
 
 }
+
