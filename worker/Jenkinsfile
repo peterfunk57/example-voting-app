@@ -14,7 +14,7 @@ pipeline {
             steps{
                 echo 'Compilando worker app ...'
                 dir('worker'){
-                bat 'mvn compile'
+                sh 'mvn compile'
                 }
             }
                 
@@ -25,7 +25,7 @@ pipeline {
 
                 echo 'Testing worker app ...'
                 dir('worker'){
-                bat 'mvn clean test'
+                sh 'mvn clean test'
                 }
 
             }
@@ -41,7 +41,7 @@ pipeline {
                 
                 echo 'generando binario worker app ...'
                 dir('worker'){
-                bat 'mvn package -DskipTest'
+                sh 'mvn package -DskipTest'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
 
                 }
