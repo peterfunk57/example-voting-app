@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'python:2.7.17-alpine3.11'
+            image 'python:2.7.16-slim'
         }
     }
 
@@ -11,7 +11,7 @@ pipeline {
             steps{
                 echo 'Compilando ....'
                 dir(vote){
-                    sh 'pip install -i requirements.txt'
+                    sh 'pip install -r requirements.txt'
                 }
 
             }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Testing ...'
                 dir(vote){
-                    sh 'nosetest -v'
+                    sh 'nosetests -v'
                 }
 
 
