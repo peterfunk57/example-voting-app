@@ -51,6 +51,29 @@ pipeline {
 
     }
 
+    stage('docker-package'){
+            when{
+                    branch 'master'
+                    changeset "**/worker/**"
+                }
+            steps{
+                
+                echo 'generando binario worker app ...'
+                script{
+                    docker.withRegistry('https://index.docker.io/v1', 'dockerlogin') {
+                        def workerImage = docker.build("peterfunk/worker:${env.BUILD_ID}", "./worker")
+                        workerImage.push("${env.BRANCH_NAKME}")
+                    }
+                }
+
+                }
+            }
+                
+        }
+
+    }
+
+
        post{
 
         always{
