@@ -1,18 +1,19 @@
 pipeline {
 
-    agent {
-
-        docker {
-           image 'maven:3.6.3-openjdk-16-slim'
-           args '-v $HOME/.m2:/root/.m2'
-        }
-    }
+    agent none
 
     stages{
 
         stage('build'){
             steps{
-                echo 'Compilando worker app ...'
+            agent {
+
+        docker {
+           image 'maven:3.6.3-openjdk-16-slim'
+           args '-v $HOME/.m2:/root/.m2'
+        }
+            }
+        echo 'Compilando worker app ...'
                 dir('worker'){
                 sh 'mvn compile'
                 }
@@ -22,7 +23,13 @@ pipeline {
 
         stage('Testing'){
             steps{
+                agent {
 
+            docker {
+            image 'maven:3.6.3-openjdk-16-slim'
+            args '-v $HOME/.m2:/root/.m2'
+            }
+            }
                 echo 'Testing worker app ...'
                 dir('worker'){
                 sh 'mvn clean test'
@@ -56,8 +63,8 @@ pipeline {
                 
                 echo 'generando binario worker app ...'
                 script{
-                    docker.withRegistry('https://index.docker.io/v1', 'dockerlogin') {
-                        def workerImage = docker.build("peterfunk/worker:${env.BUILD_ID}")
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                        def workerImage = docker.build("peterfunk/worker:${env.BUILD_ID}" , "./worker")
                         workerImage.push("${env.BRANCH_NAKME}")
 
                     }
