@@ -5,15 +5,15 @@ pipeline {
     stages{
 
         stage('build'){
-            steps{
             agent {
 
-        docker {
-           image 'maven:3.6.3-openjdk-16-slim'
-           args '-v $HOME/.m2:/root/.m2'
-        }
+            docker {
+                image 'maven:3.6.3-openjdk-16-slim'
+                args '-v $HOME/.m2:/root/.m2'
             }
-        echo 'Compilando worker app ...'
+        }
+            steps{
+            echo 'Compilando worker app ...'
                 dir('worker'){
                 sh 'mvn compile'
                 }
@@ -22,14 +22,14 @@ pipeline {
         }
 
         stage('Testing'){
-            steps{
-                agent {
+            agent {
 
             docker {
-            image 'maven:3.6.3-openjdk-16-slim'
-            args '-v $HOME/.m2:/root/.m2'
+                image 'maven:3.6.3-openjdk-16-slim'
+                args '-v $HOME/.m2:/root/.m2'
             }
-            }
+        }
+            steps{
                 echo 'Testing worker app ...'
                 dir('worker'){
                 sh 'mvn clean test'
@@ -40,6 +40,13 @@ pipeline {
         }
 
         stage('Package'){
+            agent {
+
+            docker {
+                image 'maven:3.6.3-openjdk-16-slim'
+                args '-v $HOME/.m2:/root/.m2'
+            }
+        }
             when{
                     
                     changeset "**/worker/**"
