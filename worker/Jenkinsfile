@@ -49,7 +49,6 @@ pipeline {
                 
         }
 
-    }
 
     stage('docker-package'){
             when{
@@ -67,9 +66,12 @@ pipeline {
                 }
 
                 }
-            }
-                
-        }
+            }    
+
+    }
+
+    
+}
 
     
 
