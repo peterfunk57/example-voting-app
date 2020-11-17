@@ -73,12 +73,3 @@ pipeline {
 
     }
 
-
-       post{
-
-        always{
-            echo 'Build para worker app terminado ...'
-        }
-    }
-
-}
