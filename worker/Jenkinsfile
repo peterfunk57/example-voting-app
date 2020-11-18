@@ -64,15 +64,15 @@ pipeline {
         }
 
 
-    stage('docker-package'){
-
-            steps{
-                
-                echo 'generando binario worker app ...'
-                script{
-                    docker.withRegistry('https://index.docker.io/v2/', 'dockerlogin') {
-                        def workerImage = docker.build("peterfunk101/worker:${env.BUILD_ID}" , "./worker")
-                        workerImage.push()
+     stage('docker-package'){
+            agent any
+        steps{
+            echo 'Packaging worker app with docker'
+                script{                        
+                        docker.withRegistry('https://index.docker.io/v2/', 'dockerlogin') {
+                            def workerImage = docker.build("peterfunk101/worker:v${env.BUILD_ID}", "./worker")
+                            workerImage.push()
+                            workerImage.push("latest")
 
                     }
                 }
