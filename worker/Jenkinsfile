@@ -72,7 +72,7 @@ pipeline {
                 script{
                     docker.withRegistry('https://index.docker.io/v2/', 'dockerlogin') {
                         def workerImage = docker.build("peterfunk101/worker:${env.BUILD_ID}" , "./worker")
-                        workerImage.push("${env.BRANCH_NAKME}")
+                        workerImage.push()
 
                     }
                 }
