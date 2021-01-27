@@ -47,10 +47,7 @@ pipeline {
                 args '-v $HOME/.m2:/root/.m2'
             }
         }
-            when{
-                    
-                    changeset "**/worker/**"
-                }
+            
             steps{
                 
                 echo 'generando binario worker app ...'
